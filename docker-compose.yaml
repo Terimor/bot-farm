@@ -8,7 +8,7 @@ services:
       - '8000:80'
     volumes:
       - .:/var/www/html
-      - ./etc/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./etc/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
   php:
@@ -17,7 +17,7 @@ services:
       context: ./dockerfiles
       dockerfile: php.dockerfile
     volumes:
-      - ./src:/var/www/html:delegated
+      - .:/var/www/html
   db:
     container_name: bf_db
     platform: linux/x86_64
@@ -26,6 +26,7 @@ services:
       - 3306
     volumes:
       - ./etc/mysql/entrypoint.sh:/entrypoint.sh
+      - ./db-data:/var/lib/postgresql/data:rw
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: bf
@@ -33,3 +34,4 @@ services:
       MYSQL_DATABASE_COLLATE: utf8_unicode_ci
       MYSQL_USER: bf
       MYSQL_PASSWORD: bf
+
