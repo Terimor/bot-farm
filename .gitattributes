@@ -1,0 +1,42 @@
+# Autodetect text files
+* text=auto
+
+# Force the following filetypes to have unix eols, so Windows does not break them
+*.* text eol=lf
+console text eol=lf
+crontab text eol=lf
+localhost text eol=lf
+Dockerfile text eol=lf
+README text eol=lf
+php-cs-fixer text eol=lf
+kibana text eol=lf
+phpdebug text eol=lf
+phpunit text eol=lf
+
+# All binary files shouldn't be modified
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.rar binary
+*.7z binary
+*.ttf binary
+*.exe binary
+*.jar binary
+*.pdf binary
+*.cab binary
+*.doc binary
+*.z binary
+*.dll binary
+*.or binary
+*.dbg binary
+*.phar binary
