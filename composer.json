@@ -10,13 +10,16 @@
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.11",
+        "php-webdriver/webdriver": "^1.12",
+        "ramsey/collection": "^1.2",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/flex": "^1.17|^2",
         "symfony/framework-bundle": "5.4.*",
         "symfony/proxy-manager-bridge": "5.4.*",
         "symfony/runtime": "5.4.*",
-        "symfony/yaml": "5.4.*"
+        "symfony/yaml": "5.4.*",
+        "vkcom/vk-php-sdk": "^5.101"
     },
     "config": {
         "allow-plugins": {
@@ -65,5 +68,8 @@
             "allow-contrib": false,
             "require": "5.4.*"
         }
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.38"
     }
 }

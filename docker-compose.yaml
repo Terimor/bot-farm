@@ -18,12 +18,14 @@ services:
       dockerfile: php.dockerfile
     volumes:
       - .:/var/www/html
+    depends_on:
+      - chromedriver
   db:
     container_name: bf_db
     platform: linux/x86_64
     image: mysql:8
-    expose:
-      - 3306
+    ports:
+      - '3306:3306'
     volumes:
       - ./etc/mysql/entrypoint.sh:/entrypoint.sh
       - ./db-data:/var/lib/postgresql/data:rw
@@ -34,4 +36,11 @@ services:
       MYSQL_DATABASE_COLLATE: utf8_unicode_ci
       MYSQL_USER: bf
       MYSQL_PASSWORD: bf
+  chromedriver:
+    container_name: bf_chromedriver
+    image: selenium/standalone-chrome:4.1.2-20220217
+    shm_size: '2gb'
+    ports:
+      - '4444:4444'
+      - '5900:5900'
 
