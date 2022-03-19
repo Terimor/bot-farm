@@ -33,6 +33,7 @@ class VKAccountRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('v')
             ->andWhere('v.accessToken IS NOT NULL')
+            ->andWhere('v.enabled = 1')
             ->getQuery()
         ;
 
@@ -46,6 +47,7 @@ class VKAccountRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('v')
             ->andWhere('v.accessToken IS NULL')
+            ->andWhere('v.enabled = 1')
             ->getQuery()
         ;
 

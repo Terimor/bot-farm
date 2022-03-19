@@ -1,5 +1,7 @@
 .idea
 .db-data
+.vagrant
+ubuntu-xenial-16.04-cloudimg-console.log
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
