@@ -14,8 +14,7 @@ use VK\OAuth\VKOAuthResponseType;
 class VKLoginService
 {
     private const CLIENT_ID = 8098180;
-    private const CLIENT_SECRET = 'd2jTLg34WURDBqXNjd4b';
-    private const REDIRECT_URI = 'http://localhost/vk';
+    private const REDIRECT_URI = 'https://oauth.vk.com/blank.html';
     private const STATE = 'secret_state_code';
 
     private WebDriverFactory $webDriverFactory;
@@ -30,26 +29,23 @@ class VKLoginService
         $oauth = new VKOAuth();
 
         $browserUrl = $this->getLoginBrowserUrl($oauth);
-        $code = $this->getCodeFromBrowserLogin($account, $browserUrl);
 
-        return $this->getAccessToken($oauth, $code);
+        return $this->getAccessToken($account, $browserUrl);
     }
 
     private function getLoginBrowserUrl(VKOAuth $oauth): string
     {
-        $scope = array(VKOAuthUserScope::WALL, VKOAuthUserScope::GROUPS);
-
         return $oauth->getAuthorizeUrl(
-            VKOAuthResponseType::CODE,
-            self::CLIENT_ID,
-            self::REDIRECT_URI,
-            VKOAuthDisplay::PAGE,
-            $scope,
-            self::STATE
+            response_type: VKOAuthResponseType::TOKEN,
+            client_id: self::CLIENT_ID,
+            redirect_uri: self::REDIRECT_URI,
+            display: VKOAuthDisplay::PAGE,
+            scope: [VKOAuthUserScope::WALL, VKOAuthUserScope::GROUPS],
+            state: self::STATE
         );
     }
 
-    private function getCodeFromBrowserLogin(VKAccount $account, string $browserUrl): string
+    private function getAccessToken(VKAccount $account, string $browserUrl): string
     {
         $webDriver = $this->webDriverFactory->createChrome(headless: false);
 
@@ -63,16 +59,9 @@ class VKLoginService
         $webDriver->findElementOrNull(WebDriverBy::cssSelector('button.flat_button.fl_r.button_indent'))?->click();
         $redirectedUrl = $webDriver->getCurrentURL();
 
-        $queryString = parse_url($redirectedUrl)['query'];
+        $queryString = parse_url($redirectedUrl)['fragment'];
         parse_str($queryString, $parsedQuery);
 
-        return $parsedQuery['code'];
-    }
-
-    private function getAccessToken(VKOAuth $oauth, string $code): string
-    {
-        $response = $oauth->getAccessToken(self::CLIENT_ID, self::CLIENT_SECRET, self::REDIRECT_URI, $code);
-
-        return $response['access_token'];
+        return $parsedQuery['access_token'];
     }
 }

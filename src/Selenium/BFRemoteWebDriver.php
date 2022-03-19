@@ -6,7 +6,6 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
-use Throwable;
 
 class BFRemoteWebDriver extends RemoteWebDriver
 {
